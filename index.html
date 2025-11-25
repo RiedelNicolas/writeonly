@@ -387,7 +387,17 @@ Check out [GitHub](https://github.com) for more projects.
                             safeHref = '#';
                         }
                     }
-                    const titleAttr = title ? ` title="${title}"` : '';
+                    // Escape HTML special characters to prevent XSS
+                    function escapeHtml(str) {
+                        if (!str) return '';
+                        return str
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#39;');
+                    }
+                    const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
                     return `<a href="${safeHref}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
                 }
             }
