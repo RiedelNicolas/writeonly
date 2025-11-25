@@ -364,6 +364,17 @@ Check out [GitHub](https://github.com) for more projects.
         // Initialize with sample content
         editor.value = sampleMarkdown;
 
+        // Escape HTML special characters to prevent XSS
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         // Configure marked for secure rendering
         marked.use({
             breaks: true,
@@ -386,16 +397,6 @@ Check out [GitHub](https://github.com) for more projects.
                         if (/^(javascript|vbscript|data):/i.test(href)) {
                             safeHref = '#';
                         }
-                    }
-                    // Escape HTML special characters to prevent XSS
-                    function escapeHtml(str) {
-                        if (!str) return '';
-                        return str
-                            .replace(/&/g, '&amp;')
-                            .replace(/</g, '&lt;')
-                            .replace(/>/g, '&gt;')
-                            .replace(/"/g, '&quot;')
-                            .replace(/'/g, '&#39;');
                     }
                     const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
                     return `<a href="${safeHref}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
