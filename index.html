@@ -377,8 +377,11 @@ Check out [GitHub](https://github.com) for more projects.
                 .replace(/>/g, '&gt;');
 
             // Code blocks (must be before other replacements)
+            // Note: content is already HTML-escaped from above
             html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
-                return `<pre><code class="language-${lang}">${code.trim()}</code></pre>`;
+                // Sanitize language identifier to only allow alphanumeric characters
+                const safeLang = lang.replace(/[^a-zA-Z0-9]/g, '');
+                return `<pre><code class="language-${safeLang}">${code.trim()}</code></pre>`;
             });
 
             // Inline code
@@ -417,21 +420,21 @@ Check out [GitHub](https://github.com) for more projects.
             // Links
             html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 
-            // Unordered lists
-            html = html.replace(/^[\*\-] (.+)$/gm, '<ul-item>$1</ul-item>');
+            // Unordered lists - use placeholder markers to distinguish list types
+            html = html.replace(/^[\*\-] (.+)$/gm, '<!--UL_ITEM-->$1<!--/UL_ITEM-->');
             
-            // Ordered lists
-            html = html.replace(/^\d+\. (.+)$/gm, '<ol-item>$1</ol-item>');
+            // Ordered lists - use placeholder markers to distinguish list types
+            html = html.replace(/^\d+\. (.+)$/gm, '<!--OL_ITEM-->$1<!--/OL_ITEM-->');
 
             // Wrap consecutive unordered list items
-            html = html.replace(/(<ul-item>.*<\/ul-item>\n?)+/g, (match) => {
-                const items = match.replace(/<ul-item>/g, '<li>').replace(/<\/ul-item>/g, '</li>');
+            html = html.replace(/(<!--UL_ITEM-->.*<!--\/UL_ITEM-->\n?)+/g, (match) => {
+                const items = match.replace(/<!--UL_ITEM-->/g, '<li>').replace(/<!--\/UL_ITEM-->/g, '</li>');
                 return '<ul>' + items + '</ul>';
             });
 
             // Wrap consecutive ordered list items
-            html = html.replace(/(<ol-item>.*<\/ol-item>\n?)+/g, (match) => {
-                const items = match.replace(/<ol-item>/g, '<li>').replace(/<\/ol-item>/g, '</li>');
+            html = html.replace(/(<!--OL_ITEM-->.*<!--\/OL_ITEM-->\n?)+/g, (match) => {
+                const items = match.replace(/<!--OL_ITEM-->/g, '<li>').replace(/<!--\/OL_ITEM-->/g, '</li>');
                 return '<ol>' + items + '</ol>';
             });
 
@@ -490,13 +493,13 @@ Check out [GitHub](https://github.com) for more projects.
             // Headings
             highlighted = highlighted.replace(/^(#{1,6} .+)$/gm, '<span class="heading">$1</span>');
 
-            // Bold
-            highlighted = highlighted.replace(/(\*\*[^*]+\*\*)/g, '<span class="bold">$1</span>');
-            highlighted = highlighted.replace(/(__[^_]+__)/g, '<span class="bold">$1</span>');
+            // Bold (use non-greedy matching and process before italic)
+            highlighted = highlighted.replace(/(\*\*.*?\*\*)/g, '<span class="bold">$1</span>');
+            highlighted = highlighted.replace(/(__.*?__)/g, '<span class="bold">$1</span>');
 
-            // Italic
-            highlighted = highlighted.replace(/(\*[^*]+\*)/g, '<span class="italic">$1</span>');
-            highlighted = highlighted.replace(/(_[^_]+_)/g, '<span class="italic">$1</span>');
+            // Italic (use negative lookahead to avoid matching ** or __)
+            highlighted = highlighted.replace(/(?<!\*)(\*(?!\*).*?(?<!\*)\*)(?!\*)/g, '<span class="italic">$1</span>');
+            highlighted = highlighted.replace(/(?<!_)(_(?!_).*?(?<!_)_)(?!_)/g, '<span class="italic">$1</span>');
 
             // Links and images
             highlighted = highlighted.replace(/(!?\[[^\]]+\]\([^)]+\))/g, '<span class="link">$1</span>');
