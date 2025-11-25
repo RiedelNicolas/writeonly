@@ -372,8 +372,23 @@ Check out [GitHub](https://github.com) for more projects.
                 // Add target="_blank" and rel="noopener noreferrer" to links for security
                 link({ href, title, tokens }) {
                     const text = this.parser.parseInline(tokens);
+                    // Sanitize href to prevent javascript: URLs and other XSS vectors
+                    let safeHref = href;
+                    try {
+                        const url = new URL(href, window.location.href);
+                        // Only allow http, https, and mailto protocols
+                        if (!['http:', 'https:', 'mailto:'].includes(url.protocol)) {
+                            safeHref = '#';
+                        }
+                    } catch (e) {
+                        // Invalid URL, use as-is (relative URLs are allowed)
+                        // But block javascript: and other dangerous protocols
+                        if (/^(javascript|vbscript|data):/i.test(href)) {
+                            safeHref = '#';
+                        }
+                    }
                     const titleAttr = title ? ` title="${title}"` : '';
-                    return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
+                    return `<a href="${safeHref}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
                 }
             }
         });
