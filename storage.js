@@ -38,7 +38,11 @@ const EditorStorage = (function () {
      * @returns {boolean} - True if saved content exists
      */
     function hasSavedContent() {
-        return load() !== null;
+        try {
+            return localStorage.getItem(STORAGE_KEY) !== null;
+        } catch (e) {
+            return false;
+        }
     }
 
     /**
