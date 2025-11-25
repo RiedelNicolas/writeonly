@@ -320,12 +320,13 @@
         </section>
     </main>
 
+    <script src="storage.js"></script>
     <script>
         const editor = document.getElementById('editor');
         const preview = document.getElementById('preview');
         const highlight = document.getElementById('highlight');
 
-        // Sample markdown to start with
+        // Sample markdown to start with (used when no saved content exists)
         const sampleMarkdown = `# Welcome to WriteOnly
 
 A minimal Markdown editor with live preview.
@@ -359,8 +360,9 @@ Check out [GitHub](https://github.com) for more projects.
 3. Enjoy distraction-free writing!
 `;
 
-        // Initialize with sample content
-        editor.value = sampleMarkdown;
+        // Initialize with saved content or sample content
+        const savedContent = EditorStorage.load();
+        editor.value = savedContent !== null ? savedContent : sampleMarkdown;
 
         // Markdown to HTML converter
         function parseMarkdown(text) {
@@ -518,6 +520,8 @@ Check out [GitHub](https://github.com) for more projects.
         function update() {
             preview.innerHTML = parseMarkdown(editor.value);
             highlight.innerHTML = highlightSyntax(editor.value) + '\n';
+            // Save content to localStorage
+            EditorStorage.save(editor.value);
         }
 
         // Sync scrolling between editor and highlight
