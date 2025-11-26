@@ -17,6 +17,19 @@ const MIN_PANE_PERCENT = 20;
  * @param {HTMLElement} container - The container element holding both panes
  */
 function setupDivider(divider, editorPane, previewPane, container) {
+    let currentEditorPercent = 50;
+
+    /**
+     * Apply pane widths based on editor percentage
+     * @param {number} editorPercent - The editor pane percentage
+     */
+    function applyPaneWidths(editorPercent) {
+        currentEditorPercent = editorPercent;
+        const previewPercent = 100 - editorPercent;
+        editorPane.style.flex = `0 0 ${editorPercent}%`;
+        previewPane.style.flex = `0 0 ${previewPercent}%`;
+    }
+
     /**
      * Handle mouse move event during drag
      * @param {MouseEvent} e - The mouse event
@@ -36,11 +49,7 @@ function setupDivider(divider, editorPane, previewPane, container) {
             editorPercent = 100 - MIN_PANE_PERCENT;
         }
 
-        const previewPercent = 100 - editorPercent;
-
-        // Apply the new widths
-        editorPane.style.flex = `0 0 ${editorPercent}%`;
-        previewPane.style.flex = `0 0 ${previewPercent}%`;
+        applyPaneWidths(editorPercent);
     }
 
     /**
@@ -52,6 +61,8 @@ function setupDivider(divider, editorPane, previewPane, container) {
         divider.classList.remove('dragging');
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
+        // Save position to storage
+        EditorStorage.saveDividerPosition(currentEditorPercent);
     }
 
     /**
@@ -64,6 +75,12 @@ function setupDivider(divider, editorPane, previewPane, container) {
         divider.classList.add('dragging');
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
+    }
+
+    // Load saved position and apply it
+    const savedPosition = EditorStorage.loadDividerPosition();
+    if (savedPosition !== null) {
+        applyPaneWidths(savedPosition);
     }
 
     // Attach mousedown listener to divider
