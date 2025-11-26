@@ -1,0 +1,73 @@
+/**
+ * Main Application Module
+ * Initializes the WriteOnly Markdown Editor
+ */
+
+// Sample markdown to start with
+const sampleMarkdown = `# Welcome to WriteOnly
+
+A minimal Markdown editor with live preview.
+
+## Features
+
+- **Live Preview**: See your formatted text instantly
+- *Simple Interface*: Focus on writing
+- \`Syntax Highlighting\`: Minimal highlighting in the editor
+
+## Code Example
+
+\`\`\`javascript
+function greet(name) {
+    return \`Hello, \${name}!\`;
+}
+\`\`\`
+
+## Links
+
+Check out [GitHub](https://github.com) for more projects.
+
+> "The best writing is rewriting." - E.B. White
+
+---
+
+### Getting Started
+
+1. Write your markdown in the left panel
+2. See the live preview on the right
+3. Enjoy distraction-free writing!
+`;
+
+/**
+ * Update preview and syntax highlighting
+ * @param {HTMLTextAreaElement} editor - The editor textarea element
+ * @param {HTMLElement} preview - The preview element
+ * @param {HTMLElement} highlight - The highlight overlay element
+ */
+function update(editor, preview, highlight) {
+    preview.innerHTML = parseMarkdown(editor.value);
+    highlight.innerHTML = highlightSyntax(editor.value) + '\n';
+}
+
+/**
+ * Initialize the application
+ */
+function initApp() {
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    const highlight = document.getElementById('highlight');
+
+    // Initialize with sample content
+    editor.value = sampleMarkdown;
+
+    // Create update callback
+    const updateCallback = () => update(editor, preview, highlight);
+
+    // Set up editor event listeners
+    setupEditorListeners(editor, highlight, updateCallback);
+
+    // Initial render
+    updateCallback();
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initApp);
