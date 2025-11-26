@@ -17,26 +17,11 @@ const MIN_PANE_PERCENT = 20;
  * @param {HTMLElement} container - The container element holding both panes
  */
 function setupDivider(divider, editorPane, previewPane, container) {
-    let isDragging = false;
-
-    /**
-     * Handle mouse down event on divider
-     * @param {MouseEvent} e - The mouse event
-     */
-    function onMouseDown(e) {
-        isDragging = true;
-        document.body.style.cursor = 'col-resize';
-        document.body.style.userSelect = 'none';
-        divider.classList.add('dragging');
-    }
-
     /**
      * Handle mouse move event during drag
      * @param {MouseEvent} e - The mouse event
      */
     function onMouseMove(e) {
-        if (!isDragging) return;
-
         const containerRect = container.getBoundingClientRect();
         const containerWidth = containerRect.width;
         const offsetX = e.clientX - containerRect.left;
@@ -62,15 +47,25 @@ function setupDivider(divider, editorPane, previewPane, container) {
      * Handle mouse up event to end drag
      */
     function onMouseUp() {
-        if (!isDragging) return;
-        isDragging = false;
         document.body.style.cursor = '';
         document.body.style.userSelect = '';
         divider.classList.remove('dragging');
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
     }
 
-    // Attach event listeners
+    /**
+     * Handle mouse down event on divider
+     * @param {MouseEvent} e - The mouse event
+     */
+    function onMouseDown(e) {
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+        divider.classList.add('dragging');
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    }
+
+    // Attach mousedown listener to divider
     divider.addEventListener('mousedown', onMouseDown);
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
 }
