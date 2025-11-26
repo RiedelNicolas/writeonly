@@ -21,6 +21,7 @@ writeonly/
 │   ├── app.js              # Application entry point and initialization
 │   ├── editor.js           # Editor functionality (scroll sync, keyboard handling)
 │   ├── markdown-parser.js  # Markdown to HTML conversion
+│   ├── storage.js          # LocalStorage persistence for editor content
 │   └── syntax-highlighter.js # Syntax highlighting for the editor
 ├── styles/
 │   └── styles.css          # All CSS styles

@@ -46,6 +46,8 @@ Check out [GitHub](https://github.com) for more projects.
 function update(editor, preview, highlight) {
     preview.innerHTML = parseMarkdown(editor.value);
     highlight.innerHTML = highlightSyntax(editor.value) + '\n';
+    // Save content to localStorage
+    EditorStorage.save(editor.value);
 }
 
 /**
@@ -56,8 +58,9 @@ function initApp() {
     const preview = document.getElementById('preview');
     const highlight = document.getElementById('highlight');
 
-    // Initialize with sample content
-    editor.value = sampleMarkdown;
+    // Initialize with saved content or sample content
+    const savedContent = EditorStorage.load();
+    editor.value = savedContent !== null ? savedContent : sampleMarkdown;
 
     // Create update callback
     const updateCallback = () => update(editor, preview, highlight);
