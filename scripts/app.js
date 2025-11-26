@@ -3,7 +3,7 @@
  * Initializes the WriteOnly Markdown Editor
  */
 
-// Sample markdown to start with (used when no saved content exists)
+// Sample markdown to start with
 const sampleMarkdown = `# Welcome to WriteOnly
 
 A minimal Markdown editor with live preview.
