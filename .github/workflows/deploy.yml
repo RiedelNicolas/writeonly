@@ -41,6 +41,8 @@ jobs:
           cp index.html _site/
           cp LICENSE _site/
           cp README.md _site/
+          cp -r styles _site/
+          cp -r scripts _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
