@@ -56,7 +56,21 @@ header h1 span {
 }
 
 .editor-pane {
-    border-right: 1px solid #3c3c3c;
+    border-right: none;
+}
+
+/* Divider between panes */
+.divider {
+    width: 4px;
+    background-color: #3c3c3c;
+    cursor: col-resize;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease;
+}
+
+.divider:hover,
+.divider.dragging {
+    background-color: #569cd6;
 }
 
 .editor-wrapper {

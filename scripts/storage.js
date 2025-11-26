@@ -1,9 +1,10 @@
 /**
  * Storage module for WriteOnly Markdown Editor
- * Handles persistence of editor content using localStorage
+ * Handles persistence of editor content and preferences using localStorage
  */
 const EditorStorage = (function () {
     const STORAGE_KEY = 'writeonly_content';
+    const DIVIDER_KEY = 'writeonly_divider_position';
 
     /**
      * Save content to localStorage
@@ -59,11 +60,48 @@ const EditorStorage = (function () {
         }
     }
 
+    /**
+     * Save divider position to localStorage
+     * @param {number} position - The editor pane percentage (20-80)
+     * @returns {boolean} - True if save was successful
+     */
+    function saveDividerPosition(position) {
+        try {
+            localStorage.setItem(DIVIDER_KEY, position.toString());
+            return true;
+        } catch (e) {
+            console.error('Failed to save divider position to localStorage:', e);
+            return false;
+        }
+    }
+
+    /**
+     * Load divider position from localStorage
+     * @returns {number|null} - The saved position or null if not found
+     */
+    function loadDividerPosition() {
+        try {
+            const saved = localStorage.getItem(DIVIDER_KEY);
+            if (saved !== null) {
+                const position = parseFloat(saved);
+                if (!isNaN(position) && position >= 20 && position <= 80) {
+                    return position;
+                }
+            }
+            return null;
+        } catch (e) {
+            console.error('Failed to load divider position from localStorage:', e);
+            return null;
+        }
+    }
+
     // Public API
     return {
         save,
         load,
         hasSavedContent,
-        clear
+        clear,
+        saveDividerPosition,
+        loadDividerPosition
     };
 })();
