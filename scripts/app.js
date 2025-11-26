@@ -25,8 +25,9 @@ function initApp() {
     const highlight = document.getElementById('highlight');
 
     // Initialize with saved content or sample content
+    // Use default sample markdown if saved content is null or empty string
     const savedContent = EditorStorage.load();
-    editor.value = savedContent !== null ? savedContent : sampleMarkdown;
+    editor.value = savedContent ? savedContent : sampleMarkdown;
 
     // Create update callback
     const updateCallback = () => update(editor, preview, highlight);
