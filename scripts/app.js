@@ -31,6 +31,9 @@ function initApp() {
     const container = document.querySelector('.container');
     setupDivider(divider, editorPane, previewPane, container);
 
+    // Initialize download dropdown
+    setupDownloadDropdown();
+
     // Initialize with saved content or sample content
     // Use default sample markdown if saved content is null or empty string
     const savedContent = EditorStorage.load();
