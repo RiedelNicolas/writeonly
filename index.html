@@ -18,9 +18,9 @@
                 </svg>
             </button>
             <div class="download-dropdown" id="download-dropdown">
-                <button class="dropdown-item" disabled>PDF</button>
-                <button class="dropdown-item" disabled>MD</button>
-                <button class="dropdown-item" disabled>HTML</button>
+                <button class="dropdown-item" id="download-pdf">PDF</button>
+                <button class="dropdown-item" id="download-md">MD</button>
+                <button class="dropdown-item" id="download-html">HTML</button>
             </div>
         </div>
     </header>
@@ -43,6 +43,7 @@
 
     <!-- JavaScript Modules -->
     <script src="https://cdn.jsdelivr.net/npm/marked@17/lib/marked.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="scripts/storage.js"></script>
     <script src="scripts/markdown-parser.js"></script>
     <script src="scripts/syntax-highlighter.js"></script>
