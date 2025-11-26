@@ -40,6 +40,10 @@ function triggerDownload(content, filename, mimeType) {
  */
 function downloadAsMD() {
     const editor = document.getElementById('editor');
+    if (!editor) {
+        console.error('Editor element not found');
+        return;
+    }
     const content = editor.value;
     const filename = `writeonly_${getDateTimeString()}.md`;
     triggerDownload(content, filename, 'text/markdown');
@@ -50,6 +54,10 @@ function downloadAsMD() {
  */
 function downloadAsHTML() {
     const preview = document.getElementById('preview');
+    if (!preview) {
+        console.error('Preview element not found');
+        return;
+    }
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,6 +131,10 @@ function downloadAsPDF() {
     }
 
     const preview = document.getElementById('preview');
+    if (!preview) {
+        console.error('Preview element not found');
+        return;
+    }
     
     // Create a temporary container with proper styling for PDF
     const tempContainer = document.createElement('div');
@@ -176,8 +188,12 @@ function downloadAsPDF() {
 function closeDropdown() {
     const downloadBtn = document.getElementById('download-btn');
     const downloadDropdown = document.getElementById('download-dropdown');
-    downloadDropdown.classList.remove('open');
-    downloadBtn.setAttribute('aria-expanded', 'false');
+    if (downloadDropdown) {
+        downloadDropdown.classList.remove('open');
+    }
+    if (downloadBtn) {
+        downloadBtn.setAttribute('aria-expanded', 'false');
+    }
 }
 
 /**
