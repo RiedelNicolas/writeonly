@@ -68,7 +68,7 @@
             }
         },
         gfm: true,
-        breaks: false
+        breaks: true
     });
 })();
 
