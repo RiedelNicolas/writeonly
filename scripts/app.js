@@ -4,6 +4,24 @@
  */
 
 /**
+ * Check if the device is a mobile device
+ * @returns {boolean} True if the device is mobile
+ */
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+/**
+ * Show mobile disclaimer if on mobile device
+ */
+function showMobileDisclaimer() {
+    const disclaimer = document.getElementById('mobile-disclaimer');
+    if (disclaimer && isMobileDevice()) {
+        disclaimer.style.display = 'flex';
+    }
+}
+
+/**
  * Update preview and syntax highlighting
  * @param {HTMLTextAreaElement} editor - The editor textarea element
  * @param {HTMLElement} preview - The preview element
@@ -20,6 +38,9 @@ function update(editor, preview, highlight) {
  * Initialize the application
  */
 function initApp() {
+    // Check for mobile device first
+    showMobileDisclaimer();
+
     const editor = document.getElementById('editor');
     const preview = document.getElementById('preview');
     const highlight = document.getElementById('highlight');
