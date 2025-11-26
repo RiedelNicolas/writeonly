@@ -11,14 +11,15 @@
         <h1><span>Write</span>Only</h1>
     </header>
     <main class="container">
-        <section class="pane editor-pane">
+        <section class="pane editor-pane" id="editor-pane">
             <div class="pane-header">Markdown</div>
             <div class="editor-wrapper">
                 <div class="editor-highlight" id="highlight" aria-hidden="true"></div>
                 <textarea id="editor" placeholder="Start writing your markdown here..." spellcheck="false"></textarea>
             </div>
         </section>
-        <section class="pane preview-pane">
+        <div class="divider" id="divider"></div>
+        <section class="pane preview-pane" id="preview-pane">
             <div class="pane-header">Preview</div>
             <div id="preview">
                 <p class="placeholder">Your preview will appear here...</p>
@@ -32,6 +33,7 @@
     <script src="scripts/markdown-parser.js"></script>
     <script src="scripts/syntax-highlighter.js"></script>
     <script src="scripts/editor.js"></script>
+    <script src="scripts/divider.js"></script>
     <script src="assets/sample-markdown.js"></script>
     <script src="scripts/app.js"></script>
 </body>

@@ -24,6 +24,13 @@ function initApp() {
     const preview = document.getElementById('preview');
     const highlight = document.getElementById('highlight');
 
+    // Initialize divider
+    const divider = document.getElementById('divider');
+    const editorPane = document.getElementById('editor-pane');
+    const previewPane = document.getElementById('preview-pane');
+    const container = document.querySelector('.container');
+    setupDivider(divider, editorPane, previewPane, container);
+
     // Initialize with saved content or sample content
     // Use default sample markdown if saved content is null or empty string
     const savedContent = EditorStorage.load();
