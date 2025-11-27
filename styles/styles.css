@@ -374,18 +374,24 @@ header h1 span {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    color: #d4d4d4;
     padding: 10px;
     border-radius: 50%;
     background-color: #2d2d2d;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease;
     z-index: 1000;
 }
 
 .github-link:hover {
     background-color: #3c3c3c;
-    color: #ffffff;
+}
+
+.github-link img {
+    transition: filter 0.2s ease;
+}
+
+.github-link:hover img {
+    filter: brightness(1.3);
 }
