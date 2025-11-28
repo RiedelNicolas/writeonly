@@ -120,7 +120,8 @@ function handleDragLeave(e, editorWrapper) {
     e.preventDefault();
     e.stopPropagation();
     // Only remove class if we're leaving the wrapper entirely
-    if (!editorWrapper.contains(e.relatedTarget)) {
+    // relatedTarget can be null when dragging from outside the browser window
+    if (!e.relatedTarget || !editorWrapper.contains(e.relatedTarget)) {
         editorWrapper.classList.remove('drag-over');
     }
 }
@@ -162,15 +163,15 @@ async function handlePaste(e, editor, updateCallback) {
     
     for (const item of items) {
         if (item.type.startsWith('image/')) {
-            e.preventDefault();
             const file = item.getAsFile();
-            if (file) {
+            if (file && isValidImageType(file)) {
+                e.preventDefault();
                 await processImageFile(file, editor, updateCallback);
+                return;
             }
-            return;
         }
     }
-    // If no images found, let the default paste behavior handle text
+    // If no supported images found, let the default paste behavior handle text
 }
 
 /**
