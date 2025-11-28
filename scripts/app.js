@@ -23,6 +23,7 @@ function initApp() {
     const editor = document.getElementById('editor');
     const preview = document.getElementById('preview');
     const highlight = document.getElementById('highlight');
+    const editorWrapper = document.querySelector('.editor-wrapper');
 
     // Initialize divider
     const divider = document.getElementById('divider');
@@ -44,6 +45,9 @@ function initApp() {
 
     // Set up editor event listeners
     setupEditorListeners(editor, highlight, updateCallback);
+    
+    // Set up image handler for drag & drop and paste
+    setupImageHandler(editor, editorWrapper, updateCallback);
 
     // Initial render
     updateCallback();
