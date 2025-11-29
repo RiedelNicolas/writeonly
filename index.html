@@ -18,6 +18,20 @@
 <body>
     <header>
         <h1><span>Write</span>Only</h1>
+        <div class="mobile-toggle" id="mobile-toggle">
+            <button class="toggle-btn active" id="toggle-editor" aria-label="Show editor" data-view="editor">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+            </button>
+            <button class="toggle-btn" id="toggle-preview" aria-label="Show preview" data-view="preview">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </button>
+        </div>
         <div class="download-container">
             <button class="download-btn" id="download-btn" aria-label="Download" aria-haspopup="true" aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -64,6 +78,7 @@
     <script src="scripts/editor.js"></script>
     <script src="scripts/divider.js"></script>
     <script src="scripts/download.js"></script>
+    <script src="scripts/mobile.js"></script>
     <script src="assets/sample-markdown.js"></script>
     <script src="scripts/app.js"></script>
 </body>

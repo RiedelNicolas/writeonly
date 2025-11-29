@@ -34,6 +34,9 @@ function initApp() {
     // Initialize download dropdown
     setupDownloadDropdown();
 
+    // Initialize mobile toggle
+    setupMobileToggle();
+
     // Initialize with saved content or sample content
     // Use default sample markdown if saved content is null or empty string
     const savedContent = EditorStorage.load();
