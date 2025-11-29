@@ -22,14 +22,6 @@ function greet(name) {
 }
 \`\`\`
 
-## Links
-
-Check out [GitHub](https://github.com) for more projects.
-
-> "The best writing is rewriting." - E.B. White
-
----
-
 ### Getting Started
 
 1. Write your markdown in the left panel
