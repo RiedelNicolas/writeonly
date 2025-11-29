@@ -45,6 +45,12 @@ jobs:
           cp -r scripts _site/
           cp -r assets _site/
 
+      - name: Inject Google Analytics ID
+        env:
+          GA_ID: ${{ secrets.GA_MEASUREMENT_ID }}
+        run: |
+          sed -i "s|__GA_MEASUREMENT_ID__|${GA_ID}|g" _site/index.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
