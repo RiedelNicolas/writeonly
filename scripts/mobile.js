@@ -59,7 +59,7 @@ function setMobileView(view) {
     const togglePreview = document.getElementById('toggle-preview');
     const container = document.querySelector('.container');
 
-    if (!editorPane || !previewPane || !toggleEditor || !togglePreview) {
+    if (!editorPane || !previewPane || !toggleEditor || !togglePreview || !container) {
         return;
     }
 
@@ -68,11 +68,15 @@ function setMobileView(view) {
         container.classList.remove('mobile-editor-active');
         toggleEditor.classList.remove('active');
         togglePreview.classList.add('active');
+        toggleEditor.setAttribute('aria-selected', 'false');
+        togglePreview.setAttribute('aria-selected', 'true');
     } else {
         container.classList.add('mobile-editor-active');
         container.classList.remove('mobile-preview-active');
         toggleEditor.classList.add('active');
         togglePreview.classList.remove('active');
+        toggleEditor.setAttribute('aria-selected', 'true');
+        togglePreview.setAttribute('aria-selected', 'false');
     }
 
     saveMobileViewPreference(view);
@@ -87,7 +91,7 @@ function setupMobileToggle() {
     const togglePreview = document.getElementById('toggle-preview');
     const container = document.querySelector('.container');
 
-    if (!mobileToggle || !toggleEditor || !togglePreview) {
+    if (!mobileToggle || !toggleEditor || !togglePreview || !container) {
         return;
     }
 
