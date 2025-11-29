@@ -47,6 +47,7 @@ function downloadAsMD() {
     const content = editor.value;
     const filename = `writeonly_${getDateTimeString()}.md`;
     triggerDownload(content, filename, 'text/markdown');
+    trackDownload('md');
 }
 
 /**
@@ -119,6 +120,7 @@ ${preview.innerHTML}
 </html>`;
     const filename = `writeonly_${getDateTimeString()}.html`;
     triggerDownload(htmlContent, filename, 'text/html');
+    trackDownload('html');
 }
 
 /**
@@ -179,7 +181,9 @@ function downloadAsPDF() {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     
-    html2pdf().set(options).from(tempContainer).save();
+    html2pdf().set(options).from(tempContainer).save().then(function() {
+        trackDownload('pdf');
+    });
 }
 
 /**
