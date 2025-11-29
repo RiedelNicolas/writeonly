@@ -23,11 +23,8 @@ writeonly/
 │   ├── markdown-parser.js  # Markdown to HTML conversion
 │   ├── storage.js          # LocalStorage persistence for editor content
 │   └── syntax-highlighter.js # Syntax highlighting for the editor
-├── styles/
-│   └── styles.css          # All CSS styles
-└── .github/
-    └── workflows/
-        └── deploy.yml      # GitHub Pages deployment workflow
+└── styles/
+    └── styles.css          # All CSS styles
 ```
 
 ## Code Style Guidelines
@@ -62,10 +59,6 @@ writeonly/
 - The Markdown parser escapes HTML to prevent XSS attacks
 - External links should use `target="_blank"` with `rel="noopener noreferrer nofollow"`
 - Sanitize any user input before rendering
-
-## Deployment
-
-The project deploys to GitHub Pages via the workflow in `.github/workflows/deploy.yml`. No build step is required - the static files are deployed directly.
 
 ## Key Design Principles
 
