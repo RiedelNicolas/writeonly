@@ -438,11 +438,11 @@ header h1 span {
     }
 
     /* By default in mobile, hide preview and show editor */
-    .preview-pane {
-        display: none !important;
+    .container .preview-pane {
+        display: none;
     }
 
-    .editor-pane {
+    .container .editor-pane {
         flex: none;
         width: 100%;
         display: flex;
@@ -450,11 +450,11 @@ header h1 span {
 
     /* When preview is active, hide editor and show preview */
     .container.mobile-preview-active .editor-pane {
-        display: none !important;
+        display: none;
     }
 
     .container.mobile-preview-active .preview-pane {
-        display: flex !important;
+        display: flex;
         flex: none;
         width: 100%;
     }
