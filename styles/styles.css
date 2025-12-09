@@ -437,19 +437,26 @@ header h1 span {
         display: none;
     }
 
-    .container.is-mobile .editor-pane,
-    .container.is-mobile .preview-pane {
+    /* By default in mobile, hide preview and show editor */
+    .preview-pane {
+        display: none !important;
+    }
+
+    .editor-pane {
         flex: none;
         width: 100%;
-        display: none;
-    }
-
-    .container.is-mobile.mobile-editor-active .editor-pane {
         display: flex;
     }
 
-    .container.is-mobile.mobile-preview-active .preview-pane {
-        display: flex;
+    /* When preview is active, hide editor and show preview */
+    .container.mobile-preview-active .editor-pane {
+        display: none !important;
+    }
+
+    .container.mobile-preview-active .preview-pane {
+        display: flex !important;
+        flex: none;
+        width: 100%;
     }
 
     .github-link {
