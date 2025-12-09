@@ -53,25 +53,21 @@ function saveMobileViewPreference(view) {
  * @param {string} view - The view to activate ('editor' or 'preview')
  */
 function setMobileView(view) {
-    const editorPane = document.getElementById('editor-pane');
-    const previewPane = document.getElementById('preview-pane');
     const toggleEditor = document.getElementById('toggle-editor');
     const togglePreview = document.getElementById('toggle-preview');
     const container = document.querySelector('.container');
 
-    if (!editorPane || !previewPane || !toggleEditor || !togglePreview || !container) {
+    if (!toggleEditor || !togglePreview || !container) {
         return;
     }
 
     if (view === 'preview') {
         container.classList.add('mobile-preview-active');
-        container.classList.remove('mobile-editor-active');
         toggleEditor.classList.remove('active');
         togglePreview.classList.add('active');
         toggleEditor.setAttribute('aria-selected', 'false');
         togglePreview.setAttribute('aria-selected', 'true');
     } else {
-        container.classList.add('mobile-editor-active');
         container.classList.remove('mobile-preview-active');
         toggleEditor.classList.add('active');
         togglePreview.classList.remove('active');
@@ -86,12 +82,11 @@ function setMobileView(view) {
  * Initialize mobile view functionality
  */
 function setupMobileToggle() {
-    const mobileToggle = document.getElementById('mobile-toggle');
     const toggleEditor = document.getElementById('toggle-editor');
     const togglePreview = document.getElementById('toggle-preview');
     const container = document.querySelector('.container');
 
-    if (!mobileToggle || !toggleEditor || !togglePreview || !container) {
+    if (!toggleEditor || !togglePreview || !container) {
         return;
     }
 
@@ -109,22 +104,18 @@ function setupMobileToggle() {
     
     // Apply initial mobile state
     if (isMobileView()) {
-        container.classList.add('is-mobile');
         setMobileView(savedView);
     }
 
     // Handle resize events
     window.addEventListener('resize', () => {
         if (isMobileView()) {
-            container.classList.add('is-mobile');
-            // Apply saved view preference on entering mobile
-            if (!container.classList.contains('mobile-editor-active') && 
-                !container.classList.contains('mobile-preview-active')) {
-                setMobileView(savedView);
+            // Restore editor view when entering mobile mode if preview is not active
+            if (!container.classList.contains('mobile-preview-active')) {
+                setMobileView('editor');
             }
         } else {
-            container.classList.remove('is-mobile');
-            container.classList.remove('mobile-editor-active');
+            // Clean up mobile classes when returning to desktop
             container.classList.remove('mobile-preview-active');
         }
     });
