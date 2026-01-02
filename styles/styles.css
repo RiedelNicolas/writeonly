@@ -428,7 +428,7 @@ header h1 span {
 }
 
 /* Mobile Styles */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .mobile-toggle {
         display: flex;
     }

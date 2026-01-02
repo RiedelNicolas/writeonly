@@ -7,7 +7,7 @@
  * Mobile breakpoint in pixels
  * @constant {number}
  */
-const MOBILE_BREAKPOINT = 768;
+const MOBILE_BREAKPOINT = 900;
 
 /**
  * Storage key for mobile view preference
